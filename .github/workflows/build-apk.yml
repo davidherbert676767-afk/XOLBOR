@@ -17,9 +17,12 @@ jobs:
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
-      - name: Fix Java 17
+      - name: Force Java and Kotlin to 17
         run: |
-          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' app/build.gradle.kts
+          find . -type f \( -name "build.gradle" -o -name "build.gradle.kts" \) -print0 | xargs -0 sed -i \
+            -e 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' \
+            -e 's/jvmTarget = "1.8"/jvmTarget = "17"/g' \
+            -e "s/jvmTarget = '1.8'/jvmTarget = '17'/g"
 
       - name: Set up JDK
         uses: actions/setup-java@v4

@@ -13,9 +13,13 @@ jobs:
 
       - name: Extract XOLBOR project
         run: |
-          unzip -q XOLBOR_GitHub_Loja_Moedas_Mais_Pacotes.zip -d xolbor_project
+          unzip -q XOLBOR_GitHub_Loja_Moedas_Mais_Pacotes_CORRIGIDO_v2.zip -d xolbor_project
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
+
+      - name: Fix Java 17
+        run: |
+          sed -i 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' app/build.gradle.kts
 
       - name: Set up JDK
         uses: actions/setup-java@v4

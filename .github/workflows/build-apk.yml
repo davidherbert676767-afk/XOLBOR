@@ -17,14 +17,7 @@ jobs:
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
-      - name: Force Java and Kotlin to 17
-        run: |
-          find . -type f \( -name "build.gradle" -o -name "build.gradle.kts" \) -print0 | xargs -0 sed -i \
-            -e 's/JavaVersion.VERSION_1_8/JavaVersion.VERSION_17/g' \
-            -e 's/jvmTarget = "1.8"/jvmTarget = "17"/g' \
-            -e "s/jvmTarget = '1.8'/jvmTarget = '17'/g"
-
-      - name: Set up JDK
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -34,6 +27,14 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.9'
+
+      - name: Force Java 17
+        run: |
+          find . -type f \( -name "build.gradle" -o -name "build.gradle.kts" \) -print0 | xargs -0 sed -i \
+            -e 's/JavaVersion\.VERSION_1_8/JavaVersion.VERSION_17/g' \
+            -e 's/JavaVersion\.VERSION_8/JavaVersion.VERSION_17/g' \
+            -e 's/jvmTarget *= *"1\.8"/jvmTarget = "17"/g' \
+            -e 's/jvmTarget *= *'\''1\.8'\''/jvmTarget = '\''17'\''/g'
 
       - name: Build APK
         run: gradle assembleDebug

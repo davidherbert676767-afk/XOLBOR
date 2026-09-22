@@ -13,9 +13,9 @@ jobs:
 
       - name: Extract XOLBOR project
         run: |
-          unzip -q XOLBOR_GitHub_Loja_Moedas_Mais_Pacotes_CORRIGIDO_v2.zip -d xolbor_project
-          cp -r xolbor_project/* .
-          cp -r xolbor_project/.[!.]* . 2>/dev/null || true
+          unzip -q XOLBOR_GitHub_Loja_Moedas_Mais_Pacotes_CORRIGIDO_v3.zip -d xolbor_project
+    cp -r xolbor_project/* .
+    cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4

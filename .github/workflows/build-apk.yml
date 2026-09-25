@@ -14,8 +14,8 @@ jobs:
       - name: Extract XOLBOR project
         run: |
           unzip -q XOLBOR_GitHub_Loja_Moedas_Mais_Pacotes_CORRIGIDO_v3.zip -d xolbor_project
-    cp -r xolbor_project/* .
-    cp -r xolbor_project/.[!.]* . 2>/dev/null || true
+          cp -r xolbor_project/* .
+          cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -28,38 +28,6 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Force Java 17
-        run: |
-          find . -type f \( -name "build.gradle" -o -name "build.gradle.kts" \) -print0 | xargs -0 sed -i \
-            -e 's/JavaVersion\.VERSION_1_8/JavaVersion.VERSION_17/g' \
-            -e 's/JavaVersion\.VERSION_8/JavaVersion.VERSION_17/g' \
-            -e 's/jvmTarget *= *"1\.8"/jvmTarget = "17"/g' \
-            -e 's/jvmTarget *= *'\''1\.8'\''/jvmTarget = '\''17'\''/g'
-      - name: Force Java 17
-        run: |
-          find . -type f \( -name "build.gradle" -o -name "build.gradle.kts" \) -print0 | xargs -0 sed -i \
-            -e 's/JavaVersion\.VERSION_1_8/JavaVersion.VERSION_17/g' \
-            -e 's/JavaVersion\.VERSION_8/JavaVersion.VERSION_17/g' \
-            -e 's/jvmTarget *= *"1\.8"/jvmTarget = "17"/g' \
-            -e 's/jvmTarget *= *'\''1\.8'\''/jvmTarget = '\''17'\''/g'
-
-      - name: Show MainActivity error lines
-        run: |
-          FILE=$(find . -path '*app/src/main/java/com/xolbor/app/MainActivity.kt' | head -1)
-          echo "Arquivo encontrado: $FILE"
-          echo "=== LINHA 96 ==="
-          sed -n '88,104p' "$FILE"
-          echo "=== LINHA 924 ==="
-          sed -n '918,930p' "$FILE"
-          echo "=== LINHAS 1111-1134 ==="
-          sed -n '1104,1140p' "$FILE"
-          echo "=== LINHAS 1274-1303 ==="
-          sed -n '1267,1310p' "$FILE"
-          echo "=== LINHA 1521 ==="
-          sed -n '1515,1527p' "$FILE"
-
-      - name: Build APK
-        run: gradle assembleDebug
       - name: Build APK
         run: gradle assembleDebug
 

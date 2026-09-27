@@ -13,7 +13,7 @@ jobs:
       - name: Extract clean XOLBOR project
         run: |
           rm -rf xolbor_project
-          unzip -q XOLBOR_v0.6_LIMPO.zip -d xolbor_project
+          unzip -q XOLBOR_v0.6.1_CORRIGIDO.zip -d xolbor_project
           test -f xolbor_project/settings.gradle.kts
           test -f xolbor_project/app/build.gradle.kts
 

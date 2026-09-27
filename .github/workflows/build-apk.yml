@@ -13,9 +13,7 @@ jobs:
 
       - name: Extract XOLBOR v0.5
         run: |
-          unzip -q XOLBOR_v0.5_BASE_MULTIPLAYER.zip -d xolbor_project
-          cp -r xolbor_project/* .
-          cp -r xolbor_project/.[!.]* . 2>/dev/null || true
+          unzip -q XOLBOR_v0.5.1_BASE_MULTIPLAYER_CORRIGIDO.zip -d xolbor_project
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4

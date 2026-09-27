@@ -332,4 +332,6 @@ app.post('/admin/role', auth, ownerOnly, (req,res) => {
   db.prepare('UPDATE users SET role=? WHERE id=?').run(role,target.id); res.json({ok:true,role});
 });
 
-app.listen(port, () => console.log(`XOLBOR backend on http://localhost:${port}`));
+const PORT = process.env.PORT || 10000;
+app.listen(PORT, "0.0.0.0", () => console.log(`XOLBOR backend on port ${PORT}`));
+

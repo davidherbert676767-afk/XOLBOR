@@ -6,7 +6,7 @@ import Database from 'better-sqlite3';
 import crypto from 'crypto';
 
 const app = express();
-const port = Number(process.env.PORT || 8080);
+const port = Number(process.env.PORT || 10000);
 const jwtSecret = process.env.JWT_SECRET || 'dev-only-change-me';
 app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
 app.use(express.json({ limit: '256kb' }));

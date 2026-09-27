@@ -17,9 +17,26 @@ jobs:
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
-      - name: Configure online backend
+      - name: Configure XOLBOR online server
         run: |
-          grep -RIl --include='*.kt' --include='*.java' --include='*.xml' --include='*.gradle' --include='*.properties' '10.0.2.2' . | xargs -r sed -i 's#http://10.0.2.2:8080#https://xolbor-add5.onrender.com#g; s#10.0.2.2:8080#https://xolbor-add5.onrender.com#g'
+          echo "Procurando endereço antigo..."
+          grep -RIl --exclude-dir=.git "10.0.2.2" . || true
+
+          echo "Substituindo servidor antigo..."
+          grep -RIl --exclude-dir=.git "10.0.2.2" . | while read file; do
+            sed -i 's#http://10\.0\.2\.2:8080#https://xolbor-add5.onrender.com#g' "$file"
+            sed -i 's#10\.0\.2\.2:8080#xolbor-add5.onrender.com#g' "$file"
+            sed -i 's#http://10\.0\.2\.2#https://xolbor-add5.onrender.com#g' "$file"
+            sed -i 's#10\.0\.2\.2#xolbor-add5.onrender.com#g' "$file"
+          done
+
+          echo "Verificando..."
+          if grep -RIn --exclude-dir=.git "10.0.2.2" .; then
+            echo "ERRO: o endereço antigo ainda existe!"
+            exit 1
+          else
+            echo "OK: endereço antigo removido."
+          fi
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4

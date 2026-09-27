@@ -17,6 +17,10 @@ jobs:
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
+      - name: Configure online backend
+        run: |
+          grep -RIl --include='*.kt' --include='*.java' --include='*.xml' --include='*.gradle' --include='*.properties' '10.0.2.2' . | xargs -r sed -i 's#http://10.0.2.2:8080#https://xolbor-add5.onrender.com#g; s#10.0.2.2:8080#https://xolbor-add5.onrender.com#g'
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:

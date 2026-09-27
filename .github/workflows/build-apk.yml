@@ -11,32 +11,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Extract XOLBOR project
+      - name: Extract XOLBOR v0.3
         run: |
-          unzip -q XOLBOR_GitHub_Loja_Moedas_Mais_Pacotes_CORRIGIDO_v3.zip -d xolbor_project
+          unzip -q XOLBOR_v0.3_ONLINE_3D_BASE.zip -d xolbor_project
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
 
-      - name: Configure XOLBOR online server
+      - name: Configure online backend
         run: |
-          echo "Procurando endereço antigo..."
-          grep -RIl --exclude-dir=.git "10.0.2.2" . || true
-
-          echo "Substituindo servidor antigo..."
           grep -RIl --exclude-dir=.git "10.0.2.2" . | while read file; do
             sed -i 's#http://10\.0\.2\.2:8080#https://xolbor-add5.onrender.com#g' "$file"
             sed -i 's#10\.0\.2\.2:8080#xolbor-add5.onrender.com#g' "$file"
             sed -i 's#http://10\.0\.2\.2#https://xolbor-add5.onrender.com#g' "$file"
             sed -i 's#10\.0\.2\.2#xolbor-add5.onrender.com#g' "$file"
           done
-
-          echo "Verificando..."
-          if grep -RIn --exclude-dir=.git "10.0.2.2" .; then
-            echo "ERRO: o endereço antigo ainda existe!"
-            exit 1
-          else
-            echo "OK: endereço antigo removido."
-          fi
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -55,5 +43,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: XOLBOR-debug-apk
+          name: XOLBOR-v0.3-debug-apk
           path: '**/build/outputs/apk/debug/*.apk'

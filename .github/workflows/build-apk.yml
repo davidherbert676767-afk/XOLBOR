@@ -11,20 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Extract XOLBOR v0.3
+      - name: Extract XOLBOR v0.5
         run: |
-          unzip -q XOLBOR_v0.3_ONLINE_3D_BASE.zip -d xolbor_project
+          unzip -q XOLBOR_v0.5_BASE_MULTIPLAYER.zip -d xolbor_project
           cp -r xolbor_project/* .
           cp -r xolbor_project/.[!.]* . 2>/dev/null || true
-
-      - name: Configure online backend
-        run: |
-          grep -RIl --exclude-dir=.git "10.0.2.2" . | while read file; do
-            sed -i 's#http://10\.0\.2\.2:8080#https://xolbor-add5.onrender.com#g' "$file"
-            sed -i 's#10\.0\.2\.2:8080#xolbor-add5.onrender.com#g' "$file"
-            sed -i 's#http://10\.0\.2\.2#https://xolbor-add5.onrender.com#g' "$file"
-            sed -i 's#10\.0\.2\.2#xolbor-add5.onrender.com#g' "$file"
-          done
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -43,5 +34,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: XOLBOR-v0.3-debug-apk
+          name: XOLBOR-v0.5-debug-apk
           path: '**/build/outputs/apk/debug/*.apk'

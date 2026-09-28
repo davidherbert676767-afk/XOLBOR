@@ -1,4 +1,4 @@
-name: Build XOLBOR APK v0.6
+name: Build XOLBOR APK v0.8
 
 on:
   workflow_dispatch:
@@ -6,14 +6,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Extract clean XOLBOR project
+      - name: Extract XOLBOR v0.8
         run: |
           rm -rf xolbor_project
-          unzip -q XOLBOR_v0.6.1_CORRIGIDO.zip -d xolbor_project
+          unzip -q XOLBOR_v0.8_MUNDOS_3D_ITENS_CRIADOR.zip -d xolbor_project
           test -f xolbor_project/settings.gradle.kts
           test -f xolbor_project/app/build.gradle.kts
 

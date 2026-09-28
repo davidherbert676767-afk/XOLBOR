@@ -147,7 +147,7 @@ app.post('/rooms', auth, (req,res) => {
 });
 
 app.post('/rooms/:roomId/join', auth, (req,res) => {
-  const room = db.prepare('SELECT * FROM game_rooms WHERE room_id=? AND status='OPEN'').get(req.params.roomId);
+  const room = db.prepare("SELECT * FROM game_rooms WHERE room_id=? AND status='OPEN'").get(req.params.roomId);
   if (!room) return res.status(404).json({error:'Sala não encontrada.'});
   const cutoff = now() - 30000; db.prepare('DELETE FROM room_players WHERE last_seen < ?').run(cutoff);
   const count = db.prepare('SELECT COUNT(*) c FROM room_players WHERE room_id=?').get(room.room_id).c;

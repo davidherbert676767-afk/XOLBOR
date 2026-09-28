@@ -14,7 +14,7 @@ jobs:
       - name: Extract XOLBOR v0.8
         run: |
           rm -rf xolbor_project
-          unzip -q XOLBOR_v0.8_MUNDOS_3D_ITENS_CRIADOR.zip -d xolbor_project
+          unzip -q XOLBOR_v0.9_VISUAL_3D_MELHORADO.zip -d xolbor_project
           test -f xolbor_project/settings.gradle.kts
           test -f xolbor_project/app/build.gradle.kts
 

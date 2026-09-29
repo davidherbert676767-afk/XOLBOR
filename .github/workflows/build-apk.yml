@@ -14,7 +14,7 @@ jobs:
       - name: Extract XOLBOR v0.8
         run: |
           rm -rf xolbor_project
-          unzip -q XOLBOR_v1.2.5_10_JOGOS_CORRIGIDO.zip -d xolbor_project
+          unzip -q XOLBOR_v1.2.6_SKINS_FUNCIONANDO.zip.zip -d xolbor_project
           test -f xolbor_project/settings.gradle.kts
           test -f xolbor_project/app/build.gradle.kts
 
